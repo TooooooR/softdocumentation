@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Тест-сценарії WordPress</title>
+    <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+    <section class="card">
+        <div class="header">
+            <div>
+                <h1>WordPress</h1>
+                <p class="subtitle">Список дописів з можливістю додавання, редагування та видалення</p>
+            </div>
+            <button class="btn btn-primary" id="add-btn">Додати допис</button>
+        </div>
+
+        <div class="pagination" aria-label="Пагінація">
+            <p class="muted pagination-meta" id="page-meta">Показано 0 з 0</p>
+            <div class="pagination-controls">
+                <button class="btn btn-light" id="prev-page" type="button" aria-label="Попередня сторінка">← Назад</button>
+                <span class="pagination-current" id="page-current">Сторінка 1 з 1</span>
+                <button class="btn btn-light" id="next-page" type="button" aria-label="Наступна сторінка">Вперед →</button>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>НАЗВА</th>
+                        <th>ОПИС</th>
+                        <th>ТЕГ</th>
+                        <th>АВТОР</th>
+                        <th>EMAIL</th>
+                        <th>ДІЇ</th>
+                    </tr>
+                </thead>
+                <tbody id="posts-body"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <div class="modal-backdrop" id="modal-backdrop">
+        <div class="modal">
+            <h2 id="modal-title">Додати допис</h2>
+            <form id="post-form">
+                <div class="grid">
+                    <div>
+                        <label for="post_title">Назва</label>
+                        <input id="post_title" name="post_title" required maxlength="255" />
+                    </div>
+                    <div>
+                        <label for="post_tag">Тег</label>
+                        <input id="post_tag" name="post_tag" required maxlength="100" />
+                    </div>
+                    <div>
+                        <label for="username">Автор</label>
+                        <input id="username" name="username" required maxlength="100" />
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" required maxlength="255" />
+                    </div>
+                </div>
+                <div class="content-row">
+                    <label for="post_content">Опис</label>
+                    <textarea id="post_content" name="post_content" required></textarea>
+                    <p class="muted note">Після збереження буде залишено перші 10 слів (бізнес-правило).</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" id="cancel-btn">Скасувати</button>
+                    <button type="submit" class="btn btn-primary">Зберегти</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js" defer></script>
+</body>
+</html>

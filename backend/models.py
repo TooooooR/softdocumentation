@@ -21,6 +21,7 @@ class PostEntity(Base):
 
 @dataclass
 class PostRecord:
+    id: int | None
     username: str
     email: str
     post_title: str

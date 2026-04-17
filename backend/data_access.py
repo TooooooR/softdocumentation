@@ -53,6 +53,7 @@ class SqlAlchemyPostRepository(IPostRepository):
 
         return [
             PostRecord(
+                id=row.id,
                 username=row.username,
                 email=row.email,
                 post_title=row.post_title,
@@ -67,3 +68,76 @@ class SqlAlchemyPostRepository(IPostRepository):
             stmt = select(func.count(PostEntity.id))
             value = session.execute(stmt).scalar_one()
         return int(value)
+
+    def create_post(self, post: PostRecord) -> PostRecord:
+        entity = PostEntity(
+            username=post.username,
+            email=post.email,
+            post_title=post.post_title,
+            post_tag=post.post_tag,
+            post_content=post.post_content,
+        )
+
+        with Session(self._engine) as session:
+            session.add(entity)
+            session.commit()
+            session.refresh(entity)
+
+        return PostRecord(
+            id=entity.id,
+            username=entity.username,
+            email=entity.email,
+            post_title=entity.post_title,
+            post_tag=entity.post_tag,
+            post_content=entity.post_content,
+        )
+
+    def get_post_by_id(self, post_id: int) -> PostRecord | None:
+        with Session(self._engine) as session:
+            entity = session.get(PostEntity, post_id)
+
+        if entity is None:
+            return None
+
+        return PostRecord(
+            id=entity.id,
+            username=entity.username,
+            email=entity.email,
+            post_title=entity.post_title,
+            post_tag=entity.post_tag,
+            post_content=entity.post_content,
+        )
+
+    def update_post(self, post_id: int, post: PostRecord) -> PostRecord | None:
+        with Session(self._engine) as session:
+            entity = session.get(PostEntity, post_id)
+            if entity is None:
+                return None
+
+            entity.username = post.username
+            entity.email = post.email
+            entity.post_title = post.post_title
+            entity.post_tag = post.post_tag
+            entity.post_content = post.post_content
+            session.commit()
+            session.refresh(entity)
+
+        return PostRecord(
+            id=entity.id,
+            username=entity.username,
+            email=entity.email,
+            post_title=entity.post_title,
+            post_tag=entity.post_tag,
+            post_content=entity.post_content,
+        )
+
+    def delete_post(self, post_id: int) -> bool:
+        with Session(self._engine) as session:
+            entity = session.get(PostEntity, post_id)
+            if entity is None:
+                return False
+
+            session.delete(entity)
+            session.commit()
+
+        return True

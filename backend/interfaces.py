@@ -30,6 +30,22 @@ class IPostRepository(ABC):
     def count_posts(self) -> int:
         raise NotImplementedError
 
+    @abstractmethod
+    def create_post(self, post: PostRecord) -> PostRecord:
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_post_by_id(self, post_id: int) -> PostRecord | None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def update_post(self, post_id: int, post: PostRecord) -> PostRecord | None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def delete_post(self, post_id: int) -> bool:
+        raise NotImplementedError
+
 
 class IImportService(ABC):
     @abstractmethod
@@ -42,4 +58,20 @@ class IImportService(ABC):
 
     @abstractmethod
     def count_posts(self) -> int:
+        raise NotImplementedError
+
+    @abstractmethod
+    def add_post(self, post: PostRecord) -> PostRecord:
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_post(self, post_id: int) -> PostRecord | None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def update_post(self, post_id: int, post: PostRecord) -> PostRecord | None:
+        raise NotImplementedError
+
+    @abstractmethod
+    def delete_post(self, post_id: int) -> bool:
         raise NotImplementedError
