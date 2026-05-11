@@ -1,0 +1,21 @@
+{
+  "api": {
+    "url": "https://www.dallasopendata.com/resource/nr4f-efb3.json",
+    "timeout_seconds": 20
+  },
+  "output": {
+    "type": "file",
+    "file_path": "output_data.json",
+    "file_format": "jsonl",
+    "kafka": {
+      "bootstrap_servers": "localhost:9092",
+      "topic": "lab4-data"
+    },
+    "redis": {
+      "host": "localhost",
+      "port": 6379,
+      "db": 0,
+      "list_key": "lab4:data"
+    }
+  }
+}
